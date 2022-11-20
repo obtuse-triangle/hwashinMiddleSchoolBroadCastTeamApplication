@@ -142,5 +142,6 @@ dist
 .svelte-kit
 
 public/js/consoleprint.js
+pull.sh
 
 # End of https://www.toptal.com/developers/gitignore/api/node
