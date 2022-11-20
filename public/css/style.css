@@ -217,3 +217,12 @@ footer {
 a:hover {
 	color: #b0b2ff;
 }
+
+header{
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	width: 100%;
+}
