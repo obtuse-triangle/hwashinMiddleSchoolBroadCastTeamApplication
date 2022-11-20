@@ -1,6 +1,6 @@
 # Hwashin Middle School BroadCast Team Application
 
-ver: 5.0
+ver: 4.0
 
 [Direct Link](https://hbroadcast.obtuse.kr)
 
