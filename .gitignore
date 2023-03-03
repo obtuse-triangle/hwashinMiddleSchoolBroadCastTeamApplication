@@ -143,5 +143,6 @@ dist
 
 public/js/consoleprint.js
 pull.sh
+users.csv
 
 # End of https://www.toptal.com/developers/gitignore/api/node

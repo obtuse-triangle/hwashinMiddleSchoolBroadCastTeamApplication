@@ -29,9 +29,9 @@
                 <img src="/img/logo.png" alt="화신중학교 로고" class="logo" />
             </a>
             <h1 class="title">2023 학년도 제 31기 화신중학교 방송부 상세 안내</h1>
-            <h2 class="subtitle">아직은 조회할 수 없습니다.</h2>
+            <h2 class="subtitle"><span class="num_name"></span> 님의 조회결과 안내</h2>
             <hr />
-            <p>신청기간 마감 이후 조회가 가능할 예정입니다.</p>
+            <p class="fetchResult"></p>
             <p>2032학년도 1학년 방송부 신청 기간은 2032년 3월 6일 ~ 2032년 3월 10일입니다.</p>
             <p>
                 이 메시지가 잘못 표시되었다고 생각하는 경우
@@ -49,6 +49,12 @@
                 <a href="https://github.com/obtuse-triangle/hwashinMiddleSchoolBroadCastTeamApplication">View source on github</a>
             </footer>
         </div>
+        <script>
+            const data = new URLSearchParams(window.location.search);
+            console.log(data);
+            document.getElementsByClassName("num_name")[0].innerHTML = data.get("number") + " " + data.get("name");
+            document.getElementsByClassName("fetchResult")[0].innerHTML = data.get("message");
+        </script>
     </body>
     <script src="https://kit.fontawesome.com/2cc80d7123.js" crossorigin="anonymous"></script>
 </html>
