@@ -1,8 +1,11 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const fs = require("fs");
 const app = express();
 const port = 40000;
 
+// app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -11,10 +14,10 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
 });
 
-app.get("/fetch", (req, res) => {
+app.post("/fetch", (req, res) => {
     ip = req.get("CF-Connecting-IP");
     console.log(`Request received at ${new Date()} from ${ip} for ${req.url}`);
-    const numName = req.query.num_name;
+    const numName = req.body.num_name;
 
     // Validate that the num_name parameter matches the expected format
     const numNameRegex = /^[0-9]{4}\s[가-힣]+$/;
@@ -32,7 +35,6 @@ app.get("/fetch", (req, res) => {
         }
         const lines = data.split("\n");
 
-        // Search for a user with a matching number in the CSV data
         let userData;
         for (let line of lines) {
             const [userNum, userName, userMessage] = line.split(",");
@@ -52,7 +54,7 @@ app.get("/fetch", (req, res) => {
                 return;
             }
 
-            const sanitizedHtml = html.replace("{{num_name}}", `${fetchNumber} ${userData.name}`).replace("{{message}}", userData.message).replace("{{name}}", userData.name);
+            const sanitizedHtml = html.replace("{{num_name}}", `${fetchNumber} ${userData.name}`).replace("{{message}}", userData.message);
 
             res.send(sanitizedHtml);
         });
