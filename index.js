@@ -38,7 +38,7 @@ app.post("/fetch", (req, res) => {
         let userData;
         for (let line of lines) {
             const [userNum, userName, userMessage] = line.split(",");
-            if (userNum === fetchNumber) {
+            if (userNum === fetchNumber && userName === fetchName) {
                 userData = { name: userName, message: userMessage };
                 break;
             }
