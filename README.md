@@ -1,6 +1,8 @@
 # Hwashin Middle School BroadCast Team Application
 
-ver: 0.111111111
+ver: 5.1
+
+[![wakatime](https://wakatime.com/badge/github/obtuse-triangle/hwashinMiddleSchoolBroadCastTeamApplication.svg)](https://wakatime.com/badge/github/obtuse-triangle/hwashinMiddleSchoolBroadCastTeamApplication)
 
 [Direct Link](https://hbroadcast.obtuse.kr)
 
