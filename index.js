@@ -14,30 +14,48 @@ app.get("/", (req, res) => {
 app.get("/fetch", (req, res) => {
     ip = req.get("CF-Connecting-IP");
     console.log(`Request received at ${new Date()} from ${ip} for ${req.url}`);
-    if (req.query.number !== undefined && req.query.name !== undefined) {
-        res.sendFile(__dirname + "/fetch.html");
+    const numName = req.query.num_name;
+
+    // Validate that the num_name parameter matches the expected format
+    const numNameRegex = /^[0-9]{4}\s[가-힣]+$/;
+    if (!numName || !numName.match(numNameRegex)) {
+        res.status(400).send("Error: Invalid input format. Please enter a valid num_name parameter.");
         return;
     }
-
-    const [fetchNumber, fetchName] = req.query.num_name.split(" ");
+    const [fetchNumber, fetchName] = numName.split(" ");
     console.log(`이름: ${fetchName}, 번호: ${fetchNumber}`);
     fs.readFile(__dirname + "/users.csv", "utf-8", (err, data) => {
         if (err) {
             console.log(err);
-        } else {
-            const users = data.split("\n");
-            for (let i = 0; i < users.length; i++) {
-                const user = users[i].split(",");
-                if (user[0] === fetchNumber) {
-                    let name = encodeURIComponent(user[1]);
-                    let message = encodeURIComponent(user[2]);
+            res.status(500).send("Error: An unexpected error occurred while processing your request. Please try again later.");
+            return;
+        }
+        const lines = data.split("\n");
 
-                    res.redirect("/fetch?" + `number=${user[0]}&name=${name}&message=${message}`);
-                    return;
-                }
+        // Search for a user with a matching number in the CSV data
+        let userData;
+        for (let line of lines) {
+            const [userNum, userName, userMessage] = line.split(",");
+            if (userNum === fetchNumber) {
+                userData = { name: userName, message: userMessage };
+                break;
             }
         }
-        res.sendFile(__dirname + "/notApplicationPeriod.html");
+        if (!userData) {
+            res.sendFile(__dirname + "/notApplicationPeriod.html");
+            return;
+        }
+        fs.readFile(__dirname + "/fetch.html", "utf-8", (err, html) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send("Error: An unexpected error occurred while processing your request. Please try again later.");
+                return;
+            }
+
+            const sanitizedHtml = html.replace("{{num_name}}", `${fetchNumber} ${userData.name}`).replace("{{message}}", userData.message).replace("{{name}}", userData.name);
+
+            res.send(sanitizedHtml);
+        });
     });
 });
 
