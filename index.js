@@ -17,15 +17,19 @@ app.get("/", (req, res) => {
 app.post("/fetch", (req, res) => {
     ip = req.get("CF-Connecting-IP");
     console.log(`Request received at ${new Date()} from ${ip} for ${req.url}`);
-    const numName = req.body.num_name;
+    const numName = req.body.num_name.replace(/\s/g, "");
 
     // Validate that the num_name parameter matches the expected format
-    const numNameRegex = /^[0-9]{4}\s[가-힣]+$/;
+    const numNameRegex = /^[0-9]{4}\s?[가-힣]+$/;
+    // numName = numName.replace(/[^\w]/g, "");
+    console.log(numName);
     if (!numName || !numName.match(numNameRegex)) {
         res.status(400).send("Error: Invalid input format. Please enter a valid num_name parameter.");
         return;
     }
-    const [fetchNumber, fetchName] = numName.split(" ");
+    //const [fetchNumber, fetchName] = numName.split(" ");
+    const fetchNumber = numName.slice(0, 4);
+    const fetchName = numName.slice(4);
     console.log(`이름: ${fetchName}, 번호: ${fetchNumber}`);
     fs.readFile(__dirname + "/users.csv", "utf-8", (err, data) => {
         if (err) {
