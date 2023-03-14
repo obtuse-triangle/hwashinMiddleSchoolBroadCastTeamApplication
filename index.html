@@ -34,11 +34,22 @@
                 <a href="/" rel="noopener noreferrer">
                     <img src="/img/logo.png" alt="화신중학교 로고" class="logo" />
                 </a>
-                <p>VERSION:6.5</p>
+                <p>VERSION:6.6</p>
             </header>
             <h1 class="title">2023 학년도 제 31기 1학년 화신중학교 방송부 상세 안내</h1>
             <ol>
-                <p>신청기간: 2023년 3월 6일 ~ 2023년 3월 10일 (점심시간 까지)</p>
+		<p>총 신청자: 21명, 1차 면접 합격자: 약 9명, 최종 합격자: 3~5명</p>
+            <form action="/fetch" method="post">
+                <div class="inputDiv">
+                    <label for="agree">방송부 신청 진행상황 조회 (학번 + 이름)</label>
+                    <input type="text" name="num_name" value="" required pattern="^[0-9]{4}\s?[가-힣]+$" placeholder="1234 홍길동" />
+                </div>
+
+                <button class="button_btn">
+                    <span class="button_top">조회하기</span>
+                </button>
+            </form>
+            <p style="font-size: 1rem">* 신청기간 종료후 조회 가능</p>
                 <h2 class="subtitle">방송부는 어떤 일을 하나요?</h2>
                 <hr />
                 <ol>
@@ -118,17 +129,6 @@
                     </li>
                 </ol>
             </ol>
-            <form action="/fetch" method="post">
-                <div class="inputDiv">
-                    <label for="agree">방송부 신청 진행상황 조회 (학번 + 이름)</label>
-                    <input type="text" name="num_name" value="" required pattern="^[0-9]{4}\s?[가-힣]+$" placeholder="1234 홍길동" />
-                </div>
-
-                <button class="button_btn">
-                    <span class="button_top">조회하기</span>
-                </button>
-            </form>
-            <p style="font-size: 1rem">* 신청기간 종료후 조회 가능</p>
 
             <!-- <a class="button" href="https://www.autoproctor.co/tests/start-test/MHf741yD7z">신청하러 가기</a> -->
 
